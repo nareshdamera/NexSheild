@@ -87,18 +87,6 @@ The frontend is a **dark-themed React SPA**, optimized for clarity and speed.
 
 ---
 
-## 📁 **Project Structure**
-
-├── config/ # JWT token generation
-├── controllers/ # Authentication & data processing logic
-├── middleware/ # JWT verification (authMiddleware)
-├── models/ # Mongoose schemas (User & Vulnerability)
-├── routes/ # Express API endpoint definitions
-├── services/ # External service handlers (Nodemailer)
-├── src/ # React Frontend source code
-└── index.js # Server entry point, DB connection, Cron job setup
----
-
 ## 🚀 **Key Features Overview**
 - 🔍 Automated CVE scraping  
 - 🤖 LLM-powered vulnerability enrichment  
