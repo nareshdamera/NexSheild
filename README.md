@@ -1,112 +1,133 @@
-NEXSHEILD: Proactive and Personalized Security Alerting Platform
+# 🛡️ NEXSHEILD  
+### **Personalized Security Alerting Platform**
 
-NEXSHEILD is a full-stack web application designed to help individuals and organizations stay ahead of security threats by providing highly targeted, real-time vulnerability alerts. Instead of wading through endless CVE lists, users are only notified when a new threat is relevant to the organizations or keywords they actively track.
+NEXSHEILD is a proactive, full-stack security alerting platform designed to solve the problem of **alert fatigue**.  
+Instead of overwhelming users with every new vulnerability, NEXSHEILD intelligently scans, enriches, filters, and notifies users **only when a cybersecurity threat is relevant** to their tracked technologies or organizations.
 
-🚀 Project Overview
+Built using a modern **MERN-like tech stack**, the platform features automated vulnerability monitoring, LLM-powered data enrichment, personalized alerts, and a smooth, responsive frontend experience.
 
-The application is built on a modern MERN-like stack (MongoDB, Express, React, Node.js) and features an intelligent, automated data pipeline that handles monitoring, enrichment, and personalized alerting.
+---
 
-✨ Key Features
+## ✨ **Core Functionality: The Automated Data Pipeline**
 
-1. Automated Data Pipeline (Backend)
+At the heart of NEXSHEILD lies an automated backend pipeline that runs daily using a Cron Job.
 
-The core business logic runs on a daily schedule (via a Cron job) to ensure timely alerts:
+### **1️⃣ Data Harvesting & Enrichment**
+#### **Web Scraping (scraper.cjs)**
+- Scrapes the latest CVEs from the **National Vulnerability Database (NVD)** using **Cheerio**.
+- Extracts raw vulnerability content for processing.
 
-Web Scraping (scraper.cjs): Scrapes the latest CVEs from the National Vulnerability Database (NVD) using Cheerio.
+#### **LLM-Powered Data Enrichment**
+- Sends raw vulnerability text to a **HuggingFace LLM**.
+- The model extracts:
+  - Company / Vendor name  
+  - Short, clear vulnerability summary  
+- Converts unstructured CVE descriptions into **clean, structured, actionable data**.
 
-LLM Enrichment: New vulnerability data is passed to an external HuggingFace Large Language Model (LLM) to accurately identify the affected Company/Vendor Name and generate a concise summary.
+---
 
-Targeted Alerting (mail.cjs): Matches enriched vulnerabilities to registered users based on their custom keywords. Eligible users receive a direct email alert via Nodemailer.
+### **2️⃣ Personalized Alerting**
+#### **Targeted Matching (mail.cjs)**
+- Retrieves all users who opted in for notifications.
+- Compares the LLM-extracted **Company Name** with the **user’s tracking keywords**.
 
-2. User Authentication and Profile Management
+#### **Smart Email Notifications**
+Users receive alerts *only* when:
+- A vulnerability matches their tracked vendors/technology.
+- They have enabled email notifications.
 
-Secure Authentication: User registration and login are handled with strong security practices, including password hashing via bcrypt and session management using JSON Web Tokens (JWT).
+This dramatically reduces **alert noise** and increases the **signal-to-alert ratio**.
 
-Personalized Tracking: The user profile (SettingsSection) allows users to manage their list of tracking keywords. This list is the foundation for determining which alerts they receive.
+---
 
-3. Frontend Experience (React)
+## 🖥️ **Frontend: Clean, Smooth, User-Centric Experience**
 
-The frontend is a dark-themed, responsive Single Page Application (SPA) built with React and styled with Tailwind CSS and Framer Motion for smooth animations.
+The frontend is a **dark-themed React SPA**, optimized for clarity and speed.
 
-Route
+### **Key Routes & Features**
 
-Purpose
+| Route | Purpose | Features |
+|-------|---------|----------|
+| `/` | Landing Page | About section, testimonials, project overview |
+| `/login` / `/register` | Authentication | JWT login, bcrypt password hashing, persistent session storage |
+| `/dashboard` | Vulnerability Feed | Search, pagination, protected route |
+| `/profile` | User Settings | Keyword updates, password change, account management |
 
-Key Components
+### **Tech Enhancements**
+- **Tailwind CSS** for modern styling  
+- **Framer Motion** for smooth animations  
+- **React Router** for seamless navigation  
 
-/
+---
 
-Marketing Landing Page
+## ⚙️ **Technology Stack**
 
-HeroSection, About, Testimonials
+### **Frontend**
+- React  
+- Tailwind CSS  
+- Framer Motion  
+- React Router  
 
-/login, /register
+### **Backend**
+- Node.js  
+- Express.js  
+- node-cron  
 
-User Authentication
+### **Database**
+- MongoDB (Mongoose)  
+- Stores Users, Vulnerabilities, Enriched Metadata  
 
-Login.jsx, Register.jsx
+### **Intelligence Layer**
+- HuggingFace Large Language Model  
+- Extracts company names & summaries from CVEs  
 
-/Dashboard
+### **Email Service**
+- Nodemailer  
+- Sends targeted vulnerability alerts  
 
-Vulnerability Feed
+---
 
-VulerabilityList.jsx (searchable, paginated view of all CVEs)
+## 📁 **Project Structure**
 
-/profile
+├── config/ # JWT token generation
+├── controllers/ # Authentication & data processing logic
+├── middleware/ # JWT verification (authMiddleware)
+├── models/ # Mongoose schemas (User & Vulnerability)
+├── routes/ # Express API endpoint definitions
+├── services/ # External service handlers (Nodemailer)
+├── src/ # React Frontend source code
+└── index.js # Server entry point, DB connection, Cron job setup
+---
 
-User Settings
+## 🚀 **Key Features Overview**
+- 🔍 Automated CVE scraping  
+- 🤖 LLM-powered vulnerability enrichment  
+- ✉️ Personalized email alerts  
+- 🔐 Secure JWT-based authentication  
+- ⚡ Real-time dashboard for browsing vulnerabilities  
+- 🎛️ Editable keyword tracking system  
 
-ProfilePage.jsx, SettingsSection.jsx (Manage account details and keywords)
+---
 
-⚙️ Technology Stack
+## 📌 **Future Enhancements**
+- AI-based severity scoring  
+- Real-time CVE streaming using WebSockets  
+- Organization dashboards & team-level alerts  
+- Historical analytics & reporting  
 
-Category
+---
 
-Technology
+## 🤝 **Contributions**
+Feel free to open issues or submit pull requests — contributions are welcome!
 
-Purpose
+---
 
-Frontend
+## 📝 License
+This project is licensed under the **MIT License**.
 
-React, Tailwind CSS, Framer Motion, React Router
+---
 
-User Interface and Navigation
-
-Backend
-
-Node.js, Express, node-cron
-
-API, Routing, and Job Scheduling
-
-Database
-
-MongoDB (Mongoose)
-
-Data persistence for Users and Vulnerabilities
-
-Utilities
-
-Cheerio, Axios, Nodemailer, bcrypt, JWT
-
-Web Scraping, HTTP Requests, Emailing, Security
-
-Intelligence
-
-HuggingFace LLM (via Inference Client)
-
-Automated Data Enrichment
-
-📦 Project Structure
-
-The project follows a standard structure for full-stack development:
-
-├── config/                  # Server configuration (e.g., generateToken)
-├── controllers/             # Server business logic (userController, scraperController)
-├── middleware/              # Authentication logic (authMiddleware)
-├── models/                  # Mongoose schemas (userModel, vulnerabilityModel)
-├── routes/                  # API endpoint definitions (userRoutes, scraperRoutes)
-├── services/                # External services (mail.cjs)
-├── src/                     # React Frontend source code
-│   └── components/          # React components
-│       └── ...              # (Login, Dashboard, Navbar, SettingsSection, etc.)
-└── index.js                 # Server entry point, DB connection, Cron job setup
+## 💡 **Author**
+**Naresh Damera**  
+Chief AI Engineer  
+GitHub: *github.com/nareshdamera*
